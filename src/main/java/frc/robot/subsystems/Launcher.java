@@ -37,6 +37,7 @@ public class Launcher extends SubsystemBase {
   }
 
   public void launch() {
+    System.out.print("in Launcher.launch\n");
     m_launcher1.set(LauncherConstants.launcherMotorSpeed);
   }
 

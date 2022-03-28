@@ -39,7 +39,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Configure the default commands
-    m_intake.setDefaultCommand(
+/*     m_intake.setDefaultCommand(
       new RunCommand(() -> m_intake.stopIntakeWheels(), m_intake)
       );
     m_indexer.setDefaultCommand(
@@ -48,7 +48,7 @@ public class RobotContainer {
     m_launcher.setDefaultCommand(
       new RunCommand(() -> m_launcher.stopLauncher(), m_launcher)
     );
-  }
+ */  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -65,10 +65,10 @@ public class RobotContainer {
       .whenPressed(() -> m_intake.pushOutCargo())
       .whenReleased(() -> m_intake.stopIntakeWheels());
     
-    new JoystickButton(m_xbox2, Button.kA.value)
-      .whenPressed(() -> m_intake.openArm());
-    new JoystickButton(m_xbox2, Button.kB.value)
-      .whenPressed(() -> m_intake.closeArm());
+    // new JoystickButton(m_xbox2, Button.kA.value)
+    //   .whenPressed(() -> m_intake.openArm());
+    // new JoystickButton(m_xbox2, Button.kB.value)
+    //   .whenPressed(() -> m_intake.closeArm());
     
     new JoystickButton(m_xbox2, Button.kX.value)
       .whenPressed(() -> m_indexer.feedToLauncher())
@@ -76,6 +76,10 @@ public class RobotContainer {
     new JoystickButton(m_xbox2, Button.kY.value)
       .whenPressed(() -> m_indexer.throwAwayToIntake())
       .whenReleased(() -> m_indexer.stopIndexer());
+    
+    new JoystickButton(m_xbox2, Button.kA.value)
+      .whenPressed(() -> m_launcher.launch())
+      .whenReleased(() -> m_launcher.stopLauncher());
   }
 
   /**

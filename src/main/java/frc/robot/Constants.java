@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -30,7 +31,6 @@ public final class Constants {
     public final static class EncoderPorts {
         public final static int[] leftEnc = new int[]{0, 1};
         public final static int[] rightEnc = new int[]{2, 3};
-        public final static int[] intakeWheelsEnc = new int[]{10,11};
         public final static int[] intakeArmEnc = new int[]{4,5};
         public final static int[] launcherEnc = new int[]{6,7};
         public final static int[] climberEnc = new int[]{8,9};
@@ -55,7 +55,10 @@ public final class Constants {
     }
 
     public final class LauncherConstants {
-        public final static double launcherMotorSpeed = 0.7;
+        public final static double launcherMotorSpeed = 0.9;
+        public final static double kS = 1.0;
+        public final static double kV = 0.5;
+        public final static double kA = 0.0;
     }
 
     public final class OIConstants {

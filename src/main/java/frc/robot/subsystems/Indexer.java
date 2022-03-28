@@ -35,10 +35,12 @@ public class Indexer extends SubsystemBase {
   }
 
   public void feedToLauncher() {
+    System.out.print("in feedToLauncher\n");
     m_indexerFront.set(IndexerConstants.indexerMotorSpeed);
   }
 
   public void throwAwayToIntake() {
+    System.out.print("In throwAwayToIntake\n");
     m_indexerFront.set(-IndexerConstants.indexerMotorSpeed);
   }
 
