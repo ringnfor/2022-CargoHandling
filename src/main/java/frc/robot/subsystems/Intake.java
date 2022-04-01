@@ -37,31 +37,7 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public void openArm() {
-    // If the arm already opened, nothing more to do.
-    if (m_armState == ArmState.OPENED) {
-      return;
-    }
 
-    // ToDo: Apply power until the arm is opened
-
-    // ToDo: Set the state to OPENED
-  }
-
-  public void closeArm() {
-    // If the arm already opened, nothing more to do.
-    if (m_armState == ArmState.CLOSED) {
-      return;
-    }
-
-    // ToDo: Apply power until the arm is closed
-
-    // ToDo: Set the state to CLOSED
-  }
-
-  public ArmState getArmState() {
-    return m_armState;
-  }
 
   public void pullInCargo() {
     m_intakeWheels.set(IntakeConstants.wheelMotorSpeed);
