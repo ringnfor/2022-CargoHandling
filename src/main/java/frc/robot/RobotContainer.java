@@ -6,12 +6,15 @@ package frc.robot;
 
 import static edu.wpi.first.wpilibj.XboxController.Button;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
@@ -27,16 +30,19 @@ public class RobotContainer {
   private final Intake m_intake = new Intake();
   private final Indexer m_indexer = new Indexer();
   private final Launcher m_launcher = new Launcher();
-
+  private final DriveTrain m_drive = new DriveTrain();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  // private final XboxController m_xbox1 = new XboxController(OIConstants.xbox1_port);
+  private final XboxController m_xbox1 = new XboxController(OIConstants.xbox1_port);
   private final XboxController m_xbox2 = new XboxController(OIConstants.xbox2_port);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    CameraServer.startAutomaticCapture();
+
 
     // Configure the default commands
 /*     m_intake.setDefaultCommand(
@@ -48,7 +54,10 @@ public class RobotContainer {
     m_launcher.setDefaultCommand(
       new RunCommand(() -> m_launcher.stopLauncher(), m_launcher)
     );
- */  }
+ */  
+    m_drive.setDefaultCommand( new RunCommand(
+      () -> m_drive.arcadeDrive(-m_xbox1.getLeftY(), m_xbox1.getRightX()), m_drive));
+}
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -65,10 +74,10 @@ public class RobotContainer {
       .whenPressed(() -> m_intake.pushOutCargo())
       .whenReleased(() -> m_intake.stopIntakeWheels());
     
-    // new JoystickButton(m_xbox2, Button.kA.value)
-    //   .whenPressed(() -> m_intake.openArm());
-    // new JoystickButton(m_xbox2, Button.kB.value)
-    //   .whenPressed(() -> m_intake.closeArm());
+     new JoystickButton(m_xbox2, Axis.kLeftTrigger.value)
+       .whenPressed(() -> m_intake.openArm());
+     new JoystickButton(m_xbox2, Axis.kRightTrigger.value)
+       .whenPressed(() -> m_intake.closeArm());
     
     new JoystickButton(m_xbox2, Button.kX.value)
       .whenPressed(() -> m_indexer.feedToLauncher())
@@ -80,6 +89,8 @@ public class RobotContainer {
     new JoystickButton(m_xbox2, Button.kA.value)
       .whenPressed(() -> m_launcher.launch())
       .whenReleased(() -> m_launcher.stopLauncher());
+
+  
   }
 
   /**
