@@ -30,6 +30,8 @@ public class DriveTrain extends SubsystemBase {
   private Encoder m_leftEnc, m_rightEnc;
   private AHRS m_gyro;
   private DifferentialDriveOdometry m_odometry;
+  public boolean speed_mode = true;
+
 
   /** Creates a new DriveSubsystem. */
   public DriveTrain() {
@@ -116,5 +118,16 @@ public class DriveTrain extends SubsystemBase {
    */
   public void setMaxOutput(double maxOutput) {
     m_diffdrv.setMaxOutput(maxOutput);
+  }
+
+  public void toggleMaxOutput(){
+      if(speed_mode) {
+        m_diffdrv.setMaxOutput(0.5);
+        speed_mode = false;
+      } else {
+        m_diffdrv.setMaxOutput(1);
+        speed_mode = true;
+      }
+
   }
 }
