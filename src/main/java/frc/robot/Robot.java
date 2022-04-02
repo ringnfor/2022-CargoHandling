@@ -5,8 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.IntakeArm;
+import frc.robot.subsystems.Launcher;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private final XboxController m_xbox2 = new XboxController(OIConstants.xbox2_port);
+  private final IntakeArm m_intakeArm = new IntakeArm();
 
   private RobotContainer m_robotContainer;
 
@@ -81,7 +87,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    if(m_xbox2.getLeftTriggerAxis() > 0) { m_intakeArm.openArm();}
+    else if(m_xbox2.getRightTriggerAxis() > 0){ m_intakeArm.closeArm();}
+
+    if(m_xbox2.getPOV() == 180){ Launcher.launchLow(); }
+    else if(m_xbox2.getPOV() == 0){ Launcher.launchHigh(); }
+  }
 
   @Override
   public void testInit() {

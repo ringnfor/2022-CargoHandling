@@ -13,18 +13,13 @@ import frc.robot.Constants.CAN_IDs;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
-  public enum ArmState {OPENED, CLOSED};
 
   private CANSparkMax m_intakeWheels = new CANSparkMax(CAN_IDs.intakeWheels_ID, MotorType.kBrushless);
-  private CANSparkMax m_intakeArm = new CANSparkMax(CAN_IDs.intakeArm_ID, MotorType.kBrushless);
-  private ArmState m_armState = ArmState.CLOSED;
   
   /** Creates a new Intake. */
   public Intake() {
     m_intakeWheels.restoreFactoryDefaults();
-    m_intakeArm.restoreFactoryDefaults();
     m_intakeWheels.setIdleMode(IdleMode.kCoast);
-    m_intakeArm.setIdleMode(IdleMode.kCoast);
   }
 
   @Override

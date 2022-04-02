@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -20,10 +22,10 @@ public class IntakeArm extends SubsystemBase {
   public enum ArmState {OPENED, CLOSED};
   /** Creates a new IntakeArm. */
   
-  private CANSparkMax m_intakeArm = new CANSparkMax(22, MotorType.kBrushless);
+  private CANSparkMax m_intakeArm = new CANSparkMax(Constants.CAN_IDs.intakeArm_ID, MotorType.kBrushless);
   private ArmState m_armState = ArmState.CLOSED;
-  private double m_armOpened = -10;
-  private double m_armClosed = -2;
+  private double m_armOpened = -9.5;
+  private double m_armClosed = -1;
 
   public IntakeArm() {
     m_intakeArm.restoreFactoryDefaults();

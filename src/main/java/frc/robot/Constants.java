@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    
     public final class CAN_IDs {
         public final static int left1_ID = 11;
         public final static int left2_ID = 12;
@@ -83,14 +84,20 @@ public final class Constants {
     }
 
     public final class LauncherConstants {
-        public final static double launcherMotorSpeed = 0.9;
+        public final static double launcherMotorHighSpeed = 0.95;
+        public final static double launcherMotorLowSpeed = 0.7;
         public final static double kS = 1.0;
         public final static double kV = 0.5;
         public final static double kA = 0.0;
+        
+        
     }
 
     public final class OIConstants {
         public final static int xbox1_port = 0;
         public final static int xbox2_port = 1;
     }
+   
+
+    
 }

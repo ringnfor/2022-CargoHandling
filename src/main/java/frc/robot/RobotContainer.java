@@ -10,9 +10,11 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Axis;
+import edu.wpi.first.wpilibj.XboxController.Button;;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Indexer;
@@ -32,7 +34,6 @@ public class RobotContainer {
   private final Indexer m_indexer = new Indexer();
   private final Launcher m_launcher = new Launcher();
   private final DriveTrain m_drive = new DriveTrain();
-  private final IntakeArm m_intakeArm = new IntakeArm();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final XboxController m_xbox1 = new XboxController(OIConstants.xbox1_port);
@@ -58,14 +59,9 @@ public class RobotContainer {
       new RunCommand(() -> m_launcher.stopLauncher(), m_launcher)
     );
  */  
-    if(speed_mode){
       m_drive.setDefaultCommand( new RunCommand(
-      () -> m_drive.arcadeDrive(-m_xbox1.getLeftY(), m_xbox1.getRightX()), m_drive));}
-    else if(!speed_mode){
-      m_drive.setDefaultCommand( new RunCommand(
-      () -> m_drive.arcadeDrive(-m_xbox1.getLeftY()/2, m_xbox1.getRightX()/2), m_drive));}
-    }
-}
+      () -> m_drive.arcadeDrive(-m_xbox1.getLeftY()/2, m_xbox1.getRightX()/3), m_drive));}
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -81,11 +77,7 @@ public class RobotContainer {
     new JoystickButton(m_xbox2, Button.kRightBumper.value)
       .whenPressed(() -> m_intake.pushOutCargo())
       .whenReleased(() -> m_intake.stopIntakeWheels());
-    
-     new JoystickButton(m_xbox2, Axis.kLeftTrigger.value)
-       .whenPressed(() -> m_intakeArm.openArm());
-     new JoystickButton(m_xbox2, Axis.kRightTrigger.value)
-       .whenPressed(() -> m_intakeArm.closeArm());
+  
     
     new JoystickButton(m_xbox2, Button.kX.value)
       .whenPressed(() -> m_indexer.feedToLauncher())
@@ -100,18 +92,9 @@ public class RobotContainer {
     new JoystickButton(m_xbox2, Button.kB.value)
       .whenPressed(() -> m_launcher.unclogLauncher())
       .whenReleased(() -> m_launcher.stopLauncher());
-
-      new JoystickButton(m_xbox2,Axis.kLeftTrigger.value)
-      .whenPressed(() -> m_intakeArm.openArm());
-    new JoystickButton(m_xbox2, Axis.kLeftTrigger.value)
-      .whenPressed(() -> m_intakeArm.closeArm());
-
     
-      new JoystickButton(m_xbox1, Button.kA.value)
-      .whenPressed(() -> m_drive.toggleMaxOutput());
-
-  
-  }
+    new JoystickButton(m_xbox1, Button.kA.value)
+      .whenPressed(() -> m_drive.toggleMaxOutput());}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

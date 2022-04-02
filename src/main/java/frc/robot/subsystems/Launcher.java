@@ -16,6 +16,7 @@ import frc.robot.Constants.LauncherConstants;
 public class Launcher extends SubsystemBase {
   private CANSparkMax m_launcher1 = new CANSparkMax(CAN_IDs.launcher1_ID, MotorType.kBrushless);
   private CANSparkMax m_launcher2 = new CANSparkMax(CAN_IDs.launcher2_ID, MotorType.kBrushless);
+  private static boolean launchHeight = true;
 
   /** Creates a new Launcher. */
   public Launcher() {
@@ -37,15 +38,27 @@ public class Launcher extends SubsystemBase {
   }
 
   public void launch() {
-    System.out.print("in Launcher.launch\n");
-    m_launcher1.set(LauncherConstants.launcherMotorSpeed);
+    if(launchHeight){ m_launcher1.set(LauncherConstants.launcherMotorHighSpeed);}
+    else { m_launcher1.set(LauncherConstants.launcherMotorLowSpeed);}
   }
 
   public void unclogLauncher() {
-    m_launcher1.set(- LauncherConstants.launcherMotorSpeed / 2);
+    if(launchHeight) {m_launcher1.set(- LauncherConstants.launcherMotorHighSpeed / 2);}
+    else { m_launcher1.set(- LauncherConstants.launcherMotorLowSpeed / 2);}
   }
 
   public void stopLauncher() {
     m_launcher1.set(0.0);
   }
+
+  public static void launchHigh(){
+    launchHeight = true;
+  }
+
+  public static void launchLow(){
+    launchHeight = false;
+  }
+
+
+
 }
